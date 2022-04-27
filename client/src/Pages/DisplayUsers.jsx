@@ -3,7 +3,7 @@ import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 // const URL = 'http://localhost:3001'
-const URL = 'https://movie-database-backend.herokuapp.com'
+const URL = 'http://movie-database-backend.herokuapp.com'
 
 function DisplayUsers() {
     useEffect(() => {

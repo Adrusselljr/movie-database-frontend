@@ -8,7 +8,9 @@ const URL = 'https://movie-database-backend.herokuapp.com'
 function DisplayUsers() {
     useEffect(() => {
         const fetchedUsers = async () => {
-            const response = await fetch(`${URL}/users/get-all-users`)
+            const response = await fetch(`${URL}/users/get-all-users`, {
+                mode: "cors"
+            })
             const fetchedUsers = await response.json()
             console.log("fetchedUsers ", fetchedUsers)
             return fetchedUsers

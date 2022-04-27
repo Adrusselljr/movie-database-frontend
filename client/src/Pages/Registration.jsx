@@ -24,10 +24,6 @@ function Registration() {
 
         const fetchedData = await fetch(`${URL}/users/create-user`, {
             method: "POST",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json"
-            },
             body: JSON.stringify(newBody)
         })
         const parsedData = await fetchedData.json()

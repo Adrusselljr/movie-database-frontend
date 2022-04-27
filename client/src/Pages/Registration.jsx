@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import DisplayUsers from './DisplayUsers'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -39,7 +40,11 @@ function Registration() {
             </div><br/>
 
             <h5>Already have an account?</h5><br/>
-            <Link to='login' className='btn btn-primary'>Login</Link>
+            <Link to='login' className='btn btn-primary'>Login Here</Link>
+
+
+
+            <DisplayUsers />
         
         </div>
     )

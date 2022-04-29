@@ -1,18 +1,15 @@
 import React from 'react'
-import AllUsers from './AllUsers'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-function Home() {
+function AddMovie() {
     return (
         <div className='App'>
 
-            <h1>Select A User</h1><br/>
-
-            <AllUsers />
+            <h1>Hello World from AddMovie</h1>
         
         </div>
     )
 }
 
-export default Home
+export default AddMovie

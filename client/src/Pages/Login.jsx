@@ -1,9 +1,36 @@
-import React from 'react'
-import { Link } from "react-router-dom"
+import React, { useState } from 'react'
+import { Link, useNavigate } from "react-router-dom"
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+const URL = 'http://localhost:3001'
+// const URL = 'https://movie-database-backend.herokuapp.com'
+
 function Login() {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const navigate = useNavigate()
+
+    const handleLogin = async () => {
+        const newBody = {
+            email: email,
+            password: password
+        }
+
+        const fetchedData = await fetch(`${URL}/users/login`, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newBody)
+        })
+        
+        const parsedData = await fetchedData.json()
+        navigate("/Home")
+        return parsedData
+    }
+
     return (
         <div className='App'>
 
@@ -12,16 +39,19 @@ function Login() {
             <div className="loginForm">
                 <div className="form-group">
                     <label>Email:</label>
-                    <input className='form-control' type="email"/>
+                    <input onChange={ e => setEmail(e.target.value) } value={ email } className='form-control' type="email"/>
                 </div><br/>
 
                 <div className="form-group">
                     <label>Password:</label>
-                    <input className='form-control' type="password"/>
+                    <input onChange={ e => setPassword(e.target.value) } value={ password } className='form-control' type="password"/>
                 </div><br/>
 
-                <Link to='/home' className='btn btn-primary'>Login</Link>
-            </div>
+                <Link onClick={ handleLogin } to='/home' className='btn btn-primary'>Login</Link>
+            </div><br/>
+
+            <h5>Not Registered?</h5><br/>
+            <Link to='/' className='btn btn-primary'>Register Here</Link>
 
         </div>
     )

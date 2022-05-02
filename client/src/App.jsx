@@ -7,6 +7,7 @@ import Home from './Pages/Home'
 import AddMovie from './Pages/AddMovie'
 import User from './Pages/User'
 import Movie from './Pages/Movie'
+import EditMovie from './Pages/EditMovie'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -18,10 +19,11 @@ function App() {
                 <Route path='login' element={ <Login /> } />
                 <Route path='home' element={ <NavBar /> }>
                     <Route index element={ <Home /> } />
-                    <Route path='add-movie' element={ <AddMovie /> } />
                     <Route path='login' element={ <Login /> } />
                     <Route path='user/:id' element={ <User /> } />
                     <Route path='movie/:id' element={ <Movie /> } />
+                    <Route path='movie/edit/:id' element={ <EditMovie /> } />
+                    <Route path='user/add-movie/:id' element={ <AddMovie /> } />
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -15,7 +15,7 @@ function DisplayUsers() {
             })
             const fetchedUsers = await response.json()
             setUsers(fetchedUsers.payload)
-            console.log("fetchedUsers ", fetchedUsers)
+            // console.log("all users ", fetchedUsers)
             
             return fetchedUsers
         }

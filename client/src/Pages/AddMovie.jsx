@@ -53,7 +53,7 @@ function AddMovie() {
 
             <div className="addMovie">
                 <div className="form-group">
-                    <label>Loaction ID</label>
+                    <label>Location ID</label>
                     <input onChange={ e => setLocationId(e.target.value) } value={ locationId } className='form-control' type="number" />
                 </div><br/>
 

@@ -8,6 +8,8 @@ import AddMovie from './Pages/AddMovie'
 import User from './Pages/User'
 import Movie from './Pages/Movie'
 import EditMovie from './Pages/EditMovie'
+import Search from './Pages/Search'
+import AllUsers from './Pages/AllUsers'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -24,6 +26,8 @@ function App() {
                     <Route path='movie/:id' element={ <Movie /> } />
                     <Route path='movie/edit/:id' element={ <EditMovie /> } />
                     <Route path='user/add-movie/:id' element={ <AddMovie /> } />
+                    <Route path='user/search/:id' element={ <Search /> } />
+                    <Route path='all-users' element={ <AllUsers /> } />
                 </Route>
             </Routes>
         </BrowserRouter>

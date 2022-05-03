@@ -26,6 +26,17 @@ function EditMovie() {
             const parsedData = await fetchedData.json()
             console.log("edit movie ", parsedData.payload)
             setMovie(parsedData.payload)
+
+            setLocationId(parsedData.payload.locationId)
+            setTitle(parsedData.payload.title)
+            setDescription(parsedData.payload.description)
+            setGenre(parsedData.payload.genre)
+            setRating(parsedData.payload.rating)
+            setDirector(parsedData.payload.director)
+            setStars(parsedData.payload.stars)
+            setRuntime(parsedData.payload.runtime)
+            setYearReleased(parsedData.payload.yearReleased)
+
             return parsedData
         }
         handleViewMovie()
@@ -42,7 +53,7 @@ function EditMovie() {
             stars: stars,
             runtime: runtime,
             yearReleased: yearReleased,
-            movieOwner: movie.movieOwner
+            userId: movie.movieOwner
         }
 
         const fetchedData = await fetch(`${URL}/movies/update-movie/${id}`, {

@@ -1,5 +1,5 @@
 import React from 'react'
-import AllUsers from './AllUsers'
+import User from './User'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -9,7 +9,7 @@ function Home() {
 
             <h1>Select A User</h1><br/>
 
-            <AllUsers />
+            <User />
         
         </div>
     )

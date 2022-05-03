@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -10,7 +10,9 @@ function Movie() {
     const [movie, setMovie] = useState({})
     const [comment, setComment] = useState("")
     const [email, setEmail] = useState("")
+    const [clicked, setClicked] = useState(false)
     const { id } = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const handleViewMovie = async () => {
@@ -23,7 +25,7 @@ function Movie() {
         handleViewMovie()
     }, [id])
 
-    const handleSubmit = async () => {
+    const handleAddComment = async () => {
         const newBody = {
             comment: comment,
             movie: id,
@@ -45,6 +47,28 @@ function Movie() {
         return parsedData
     }
 
+    const handleDeleteMovie = async () => {
+        const newBody = {
+            email: email
+        }
+        const fetchedData = await fetch(`${URL}/movies/delete-movie/${id}`, {
+            method: "DELETE",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newBody)
+        })
+        const parsedData = await fetchedData.json()
+        navigate(`/home/user/${movie.movieOwner}`)
+        return parsedData
+    }
+
+    const handleClicked = () => {
+        setClicked(!clicked)
+        console.log(clicked)
+    }
+
     return (
         <div className='App'>
 
@@ -62,9 +86,22 @@ function Movie() {
                     <p><span>Stars : </span>{ movie.stars.join(', ') }</p>
                     <p><span>Year Released : </span>{ movie.yearReleased }</p>
                     <p><span>Runtime : </span>{ movie.runtime }</p>
-                </div>
+                </div><br/>
 
-                <Link to={ `/home/movie/edit/${id}` } className='btn btn-primary'>Edit Movie</Link>
+                <div className="links3">
+                    <div className="links2">
+                        <Link to={ `/home/movie/edit/${id}` } className='btn btn-primary'>Edit Movie</Link>
+                        <button onClick={ handleClicked } className='btn btn-primary'>Delete Movie</button><br/><br/>
+                    </div><br/>
+                        {clicked === true
+                        ? (<div className='form-group links3'>
+                            <label>Email</label>
+                            <input onChange={ e => setEmail(e.target.value) } value={ email } className='form-control' type="email" /><br/>
+                            <button onClick={ handleDeleteMovie } className='btn btn-primary'>Confirm Delete</button>
+                        </div>)
+                        : (<div></div>)
+                        }
+                </div>
 
                 <p>--------------------------------------------</p>
 
@@ -87,7 +124,9 @@ function Movie() {
                     <input onChange={ e => setEmail(e.target.value) } value={ email } className='form-control' type="email" /><br/>
                 </div>
 
-                <button onClick={ () => handleSubmit() } className='btn btn-primary'>Comment</button>
+                <button onClick={ handleAddComment } className='btn btn-primary'>Comment</button><br/><br/><br/><br/>
+
+                <Link to={ `/home/user/${movie.movieOwner}` } className='btn btn-primary'>Back</Link>
             </div>)
             }
         

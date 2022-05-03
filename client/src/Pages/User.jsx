@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { Link } from "react-router-dom"
+import { useParams, Link } from 'react-router-dom'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -15,7 +14,7 @@ function User() {
         const handleViewUser = async () => {
             const fetchedData = await fetch(`${URL}/users/get-current-user/${id}`)
             const parsedData = await fetchedData.json()
-            console.log("user ", parsedData.payload)
+            // console.log("user ", parsedData.payload)
             setUser(parsedData.payload)
             return parsedData
         }

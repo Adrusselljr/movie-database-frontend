@@ -19,7 +19,7 @@ function AddMovie() {
     const { id } = useParams()
     const navigate = useNavigate()
 
-    const handleSubmit = async () => {
+    const handleAddMovie = async () => {
         const newBody = {
             locationId: locationId,
             title: title,
@@ -97,7 +97,7 @@ function AddMovie() {
                     <input onChange={ e => setYearReleased(e.target.value) } value={ yearReleased } className='form-control' type="number" />
                 </div><br/>
 
-                <button onClick={ handleSubmit } className='btn btn-primary'>Add Movie</button>
+                <button onClick={ handleAddMovie } className='btn btn-primary'>Add Movie</button>
             </div>
         
         </div>

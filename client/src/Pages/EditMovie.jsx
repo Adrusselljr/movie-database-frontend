@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -31,7 +31,7 @@ function EditMovie() {
         handleViewMovie()
     }, [id])
 
-    const handleSubmit = async () => {
+    const handleUpdateMovie = async () => {
         const newBody = {
             locationId: locationId,
             title: title,
@@ -61,56 +61,64 @@ function EditMovie() {
     return (
         <div className='App'>
 
-            <h1>Add A Movie</h1><br/>
+            {Object.keys(movie).length === 0
+            ? (<div>loading...</div>)
+            : (<div>
+                <h1>Update Movie</h1><br/>
 
-            <div className="addMovie">
-                <div className="form-group">
-                    <label>Loaction ID</label>
-                    <input onChange={ e => setLocationId(e.target.value) } value={ movie.locationId } className='form-control' type="number" />
-                </div><br/>
+                <div className="addMovie">
+                    <div className="form-group">
+                        <label>Loaction ID</label>
+                        <input onChange={ e => setLocationId(e.target.value) } value={ locationId } className='form-control' type="number" />
+                    </div><br/>
 
-                <div className="form-group">
-                    <label>Title</label>
-                    <input onChange={ e => setTitle(e.target.value) } value={ movie.title } className='form-control' type="text" />
-                </div><br/>
+                    <div className="form-group">
+                        <label>Title</label>
+                        <input onChange={ e => setTitle(e.target.value) } value={ title } className='form-control' type="text" />
+                    </div><br/>
 
-                <div className="form-group">
-                    <label>Description</label>
-                    <input onChange={ e => setDescription(e.target.value) } value={ movie.description } className='form-control' type="text" />
-                </div><br/>
+                    <div className="form-group">
+                        <label>Description</label>
+                        <input onChange={ e => setDescription(e.target.value) } value={ description } className='form-control' type="text" />
+                    </div><br/>
 
-                <div className="form-group">
-                    <label>Genre</label>
-                    <input onChange={ e => setGenre(e.target.value.split(',')) } value={ movie.genre } className='form-control' type="text" />
-                </div><br/>
+                    <div className="form-group">
+                        <label>Genre</label>
+                        <input onChange={ e => setGenre(e.target.value.split(',')) } value={ genre } className='form-control' type="text" />
+                    </div><br/>
 
-                <div className="form-group">
-                    <label>Rating</label>
-                    <input onChange={ e => setRating(e.target.value) } value={ movie.rating } className='form-control' type="text" />
-                </div><br/>
+                    <div className="form-group">
+                        <label>Rating</label>
+                        <input onChange={ e => setRating(e.target.value) } value={ rating } className='form-control' type="text" />
+                    </div><br/>
 
-                <div className="form-group">
-                    <label>Director</label>
-                    <input onChange={ e => setDirector(e.target.value) } value={ movie.director } className='form-control' type="text" />
-                </div><br/>
+                    <div className="form-group">
+                        <label>Director</label>
+                        <input onChange={ e => setDirector(e.target.value) } value={ director } className='form-control' type="text" />
+                    </div><br/>
 
-                <div className="form-group">
-                    <label>Stars</label>
-                    <input onChange={ e => setStars(e.target.value.split(',')) } value={ movie.stars  } className='form-control' type="text" />
-                </div><br/>
+                    <div className="form-group">
+                        <label>Stars</label>
+                        <input onChange={ e => setStars(e.target.value.split(',')) } value={ stars  } className='form-control' type="text" />
+                    </div><br/>
 
-                <div className="form-group">
-                    <label>Runtime</label>
-                    <input onChange={ e => setRuntime(e.target.value) } value={ movie.runtime } placeholder='XH XM' className='form-control' type="text" />
-                </div><br/>
+                    <div className="form-group">
+                        <label>Runtime</label>
+                        <input onChange={ e => setRuntime(e.target.value) } value={ runtime } placeholder='0H 00M' className='form-control' type="text" />
+                    </div><br/>
 
-                <div className="form-group">
-                    <label>Year Released</label>
-                    <input onChange={ e => setYearReleased(e.target.value) } value={ movie.yearReleased } className='form-control' type="number" />
-                </div><br/>
+                    <div className="form-group">
+                        <label>Year Released</label>
+                        <input onChange={ e => setYearReleased(e.target.value) } value={ yearReleased } className='form-control' type="number" />
+                    </div><br/>
 
-                <button onClick={ handleSubmit } className='btn btn-primary'>Edit Movie</button>
-            </div>
+                    <div className="links">
+                        <button onClick={ handleUpdateMovie } className='btn btn-primary'>Update Movie</button>
+                        <Link to={ `/home/movie/${movie._id}` } className='btn btn-primary'>Cancel</Link>
+                    </div>
+                </div>
+            </div>)
+            }
         
         </div>
     )

@@ -14,7 +14,7 @@ function Registration() {
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
 
-    const handleSubmit = async () => {
+    const handleRegister = async () => {
         const newBody = {
             firstName: firstName,
             lastName: lastName,
@@ -67,7 +67,7 @@ function Registration() {
                     <input onChange={ e => setPassword(e.target.value) } value={ password } className='form-control' type="password"/>
                 </div><br/>
 
-                <button onClick={ handleSubmit } className='btn btn-primary'>Register</button>
+                <button onClick={ handleRegister } className='btn btn-primary'>Register</button>
             </div><br/>
 
             <h5>Already have an account?</h5><br/>

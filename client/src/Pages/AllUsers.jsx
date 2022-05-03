@@ -29,7 +29,7 @@ function DisplayUsers() {
                 return (
                     <div key={ user._id } className="user">
                         <p>{ user.firstName } { user.lastName }</p>
-                        <Link to={ `user/${user._id}` } className='btn btn-primary'>View User</Link>
+                        <Link to={ `/home/user/${user._id}` } className='btn btn-primary'>View User</Link>
                     </div>
                 )
             })}

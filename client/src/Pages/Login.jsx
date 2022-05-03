@@ -27,7 +27,7 @@ function Login() {
         })
         
         const parsedData = await fetchedData.json()
-        navigate("/Home")
+        navigate("/home/all-users")
         return parsedData
     }
 

@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom"
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// const URL = 'http://localhost:3001'
-const URL = 'https://movie-database-backend.herokuapp.com'
+const URL = 'http://localhost:3001'
+// const URL = 'https://movie-database-backend.herokuapp.com'
 
 function Login() {
     const [email, setEmail] = useState("")
@@ -27,6 +27,7 @@ function Login() {
         })
         
         const parsedData = await fetchedData.json()
+        console.log("logged user ", parsedData.payload)
         navigate("/home/all-users")
         return parsedData
     }

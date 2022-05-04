@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// const URL = 'http://localhost:3001'
-const URL = 'https://movie-database-backend.herokuapp.com'
+const URL = 'http://localhost:3001'
+// const URL = 'https://movie-database-backend.herokuapp.com'
 
 function DisplayUsers() {
     const [users, setUsers] = useState([])
@@ -15,8 +15,7 @@ function DisplayUsers() {
             })
             const fetchedUsers = await response.json()
             setUsers(fetchedUsers.payload)
-            // console.log("all users ", fetchedUsers)
-            
+            console.log("all users ", fetchedUsers)
             return fetchedUsers
         }
         fetchedUsers()
@@ -24,12 +23,14 @@ function DisplayUsers() {
 
     return (
         <div className='App'>
+
+            <h1>Select A User :</h1><br/>
             
             {users.map(user => {
                 return (
                     <div key={ user._id } className="user">
                         <p>{ user.firstName } { user.lastName }</p>
-                        <Link to={ `/home/user/${user._id}` } className='btn btn-primary'>View User</Link>
+                        <Link onClick={ () => console.log(user._id) } to={ `/home/user/${user._id}` } className='btn btn-primary'>View User</Link>
                     </div>
                 )
             })}

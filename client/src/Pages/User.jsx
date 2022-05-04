@@ -3,8 +3,8 @@ import { useParams, Link } from 'react-router-dom'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// const URL = 'http://localhost:3001'
-const URL = 'https://movie-database-backend.herokuapp.com'
+const URL = 'http://localhost:3001'
+// const URL = 'https://movie-database-backend.herokuapp.com'
 
 function User() {
     const [user, setUser] = useState({})
@@ -14,8 +14,8 @@ function User() {
         const handleViewUser = async () => {
             const fetchedData = await fetch(`${URL}/users/get-current-user/${id}`)
             const parsedData = await fetchedData.json()
-            // console.log("user ", parsedData.payload)
             setUser(parsedData.payload)
+            console.log("user ", parsedData.payload)
             return parsedData
         }
         handleViewUser()

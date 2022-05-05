@@ -3,8 +3,8 @@ import { useParams, Link } from 'react-router-dom'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// const URL = 'http://localhost:3001'
-const URL = 'https://movie-database-backend.herokuapp.com'
+const URL = 'http://localhost:3001'
+// const URL = 'https://movie-database-backend.herokuapp.com'
 
 function Search() {
     const [user, setUser] = useState({})
@@ -28,28 +28,28 @@ function Search() {
 
     const searchTitle = () => {
         const titleSearch = user.movieHistory.filter(movie => {
-            return movie.title === title
+            return movie.title.toLowerCase() === title.toLowerCase()
         })
         setMovies(titleSearch)
     }
 
     const filterGenre = () => {
         const genreFilter = user.movieHistory.filter(movie => {
-            return movie.genre.includes(genre)
+            return movie.genre.toLowerCase().includes(genre.toLowerCase())
         })
         setMovies(genreFilter)
     }
 
     const fliterRating = () => {
         const ratingFilter = user.movieHistory.filter(movie => {
-            return movie.rating === rating
+            return movie.rating.toLowerCase() === rating.toLowerCase()
         })
         setMovies(ratingFilter)
     }
 
     const filterStar = () => {
         const starFilter = user.movieHistory.filter(movie => {
-            return movie.stars.includes(star)
+            return movie.stars.toLowerCase().includes(star.toLowerCase())
         })
         setMovies(starFilter)
     }

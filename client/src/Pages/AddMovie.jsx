@@ -3,8 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const URL = 'http://localhost:3001'
-// const URL = 'https://movie-database-backend.herokuapp.com'
+// const URL = 'http://localhost:3001'
+const URL = 'https://movie-database-backend.herokuapp.com'
 
 function AddMovie() {
     const [locationId, setLocationId] = useState(0)
@@ -89,7 +89,7 @@ function AddMovie() {
 
                 <div className="form-group">
                     <label>Runtime</label>
-                    <input onChange={ e => setRuntime(e.target.value) } value={ runtime } placeholder='XH XM' className='form-control' type="text" />
+                    <input onChange={ e => setRuntime(e.target.value) } value={ runtime } placeholder='0H 00M' className='form-control' type="text" />
                 </div><br/>
 
                 <div className="form-group">

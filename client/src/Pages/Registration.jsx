@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom"
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const URL = 'http://localhost:3001'
-// const URL = 'https://movie-database-backend.herokuapp.com'
+// const URL = 'http://localhost:3001'
+const URL = 'https://movie-database-backend.herokuapp.com'
 
 function Registration() {
     const [firstName, setFirstName] = useState("")
@@ -22,7 +22,6 @@ function Registration() {
             email: email,
             password: password
         }
-
         const fetchedData = await fetch(`${URL}/users/create-user`, {
             method: "POST",
             mode: "cors",

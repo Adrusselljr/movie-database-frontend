@@ -3,36 +3,36 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const URL = 'http://localhost:3001'
-// const URL = 'https://movie-database-backend.herokuapp.com'
+// const URL = 'http://localhost:3001'
+const URL = 'https://movie-database-backend.herokuapp.com'
 
 function Movie() {
     const [movie, setMovie] = useState({})
     const [comment, setComment] = useState("")
     const [email, setEmail] = useState("")
     const [clicked, setClicked] = useState(false)
-    const { id } = useParams()
+    const { movieId } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         const handleViewMovie = async () => {
-            const fetchedData = await fetch(`${URL}/movies/get-one-movie/${id}`)
+            const fetchedData = await fetch(`${URL}/movies/get-one-movie/${movieId}`)
             const parsedData = await fetchedData.json()
             // console.log("movie ", parsedData.payload)
             setMovie(parsedData.payload)
             return parsedData
         }
         handleViewMovie()
-    }, [id])
+    }, [movieId])
 
     const handleAddComment = async () => {
         const newBody = {
             comment: comment,
-            movie: id,
+            movie: movieId,
             email: email
         }
 
-        const fetchedData = await fetch(`${URL}/comments/create-comment/${id}`, {
+        const fetchedData = await fetch(`${URL}/comments/create-comment/${movieId}`, {
             method: "POST",
             mode: "cors",
             headers: {
@@ -51,7 +51,7 @@ function Movie() {
         const newBody = {
             email: email
         }
-        const fetchedData = await fetch(`${URL}/movies/delete-movie/${id}`, {
+        const fetchedData = await fetch(`${URL}/movies/delete-movie/${movieId}`, {
             method: "DELETE",
             mode: "cors",
             headers: {
@@ -90,7 +90,7 @@ function Movie() {
 
                 <div className="links3">
                     <div className="links2">
-                        <Link to={ `/home/movie/edit/${id}` } className='btn btn-primary'>Edit Movie</Link>
+                        <Link to={ `/home/movie/edit/${movie.movieOwner}/${movieId}` } className='btn btn-primary'>Edit Movie</Link>
                         <button onClick={ handleClicked } className='btn btn-primary'>Delete Movie</button><br/><br/>
                     </div><br/>
                         {clicked === true

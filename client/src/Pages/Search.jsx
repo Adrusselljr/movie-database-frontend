@@ -3,8 +3,8 @@ import { useParams, Link } from 'react-router-dom'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const URL = 'http://localhost:3001'
-// const URL = 'https://movie-database-backend.herokuapp.com'
+// const URL = 'http://localhost:3001'
+const URL = 'https://movie-database-backend.herokuapp.com'
 
 function Search() {
     const [user, setUser] = useState({})
@@ -13,14 +13,16 @@ function Search() {
     const [rating, setRating] = useState("")
     const [star, setStar] = useState("")
     const [movies, setMovies] = useState([])
+    const [isError, setIsError] = useState(false)
+    const [error, setError] = useState("")
     const { id } = useParams()
 
     useEffect(() => {
         const handleViewUser = async () => {
             const fetchedData = await fetch(`${URL}/users/get-current-user/${id}`)
             const parsedData = await fetchedData.json()
-            console.log("user ", parsedData.payload)
             setUser(parsedData.payload)
+            // console.log("user ", parsedData.payload)
             return parsedData
         }
         handleViewUser()
@@ -30,28 +32,52 @@ function Search() {
         const titleSearch = user.movieHistory.filter(movie => {
             return movie.title.toLowerCase() === title.toLowerCase()
         })
-        setMovies(titleSearch)
+        if(!titleSearch) {
+            setIsError(true)
+            setError("No movie with this title")
+        }
+        else{
+            setMovies(titleSearch)
+        }
     }
 
     const filterGenre = () => {
         const genreFilter = user.movieHistory.filter(movie => {
-            return movie.genre.toLowerCase().includes(genre.toLowerCase())
+            return movie.genre.includes(genre)
         })
-        setMovies(genreFilter)
+        if(genreFilter.length > 0) {
+            setMovies(genreFilter)
+        }
+        else{
+            setIsError(true)
+            setError("No movies of this genre")
+        }
     }
 
     const fliterRating = () => {
         const ratingFilter = user.movieHistory.filter(movie => {
             return movie.rating.toLowerCase() === rating.toLowerCase()
         })
-        setMovies(ratingFilter)
+        if(!ratingFilter) {
+            setIsError(true)
+            setError("No movies of this rating")
+        }
+        else{
+            setMovies(ratingFilter)
+        }
     }
 
     const filterStar = () => {
         const starFilter = user.movieHistory.filter(movie => {
-            return movie.stars.toLowerCase().includes(star.toLowerCase())
+            return movie.stars.includes(star)
         })
-        setMovies(starFilter)
+        if(starFilter.length > 0) {
+            setMovies(starFilter)
+        }
+        else{
+            setIsError(true)
+            setError("No movies whit this star")
+        }
     }
 
     const handleReset = () => {
@@ -60,6 +86,8 @@ function Search() {
         setRating("")
         setStar("")
         setMovies([])
+        setIsError(false)
+        setError("")
     }
 
     return (
@@ -97,14 +125,18 @@ function Search() {
 
             <h1>Movies :</h1><br/>
 
-            {movies.map(movie => {
+            {isError
+            ? ( <div><p style={{color: "red"}}>{error}</p></div> )
+            : ( <div>{movies.map(movie => {
                 return (
-                    <div className='user'>
+                    <div key={movie._id} className='user'>
                         <p><span>Title : </span>{ movie.title }</p>
-                        <Link to={ `/home/movie/${movie._id}` } className='btn btn-primary'>View Movie</Link>
+                        <Link to={ `/home/movie/${id}/${movie._id}` } className='btn btn-primary'>View Movie</Link>
                     </div>
                 )
-            })}<br/><br/><br/>
+            })}</div> )
+            }
+            <br/><br/><br/>
 
             <Link to={ `/home/user/${user._id}` } className='btn btn-primary'>Back</Link><br/><br/>
         

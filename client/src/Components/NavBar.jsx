@@ -25,7 +25,6 @@ function NavBar() {
 
             <div className='navbar'>
                 <Link to={ `/home/user/${user._id}` } className='btn btn-primary'>Home</Link>
-                <Link to="/home/all-users" className='btn btn-primary'>All Users</Link>
                 <Link to={ `/home/user/search/${user._id}` } className='btn btn-primary'>Search For A Movie</Link>
                 <Link to="/login" className='btn btn-primary'>Logout</Link>
             </div>

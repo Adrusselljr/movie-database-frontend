@@ -58,3 +58,11 @@ span {
   width: 33%;
   display: flex;
 }
+
+.profileBtn {
+  display: flex;
+  width: 50%;
+  height: 40px;
+  margin-left: 25%;
+  justify-content: space-around;
+}

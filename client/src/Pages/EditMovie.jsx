@@ -3,8 +3,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const URL = 'http://localhost:3001'
-// const URL = 'https://movie-database-backend.herokuapp.com'
+// const URL = 'http://localhost:3001'
+const URL = 'https://movie-database-backend.herokuapp.com'
 
 function EditMovie() {
     const [movie, setMovie] = useState({})
@@ -17,14 +17,14 @@ function EditMovie() {
     const [stars, setStars] = useState([])
     const [runtime, setRuntime] = useState("")
     const [yearReleased, setYearReleased] = useState(0)
-    const { id } = useParams()
+    const { id, movieId } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         const handleViewMovie = async () => {
-            const fetchedData = await fetch(`${URL}/movies/get-one-movie/${id}`)
+            const fetchedData = await fetch(`${URL}/movies/get-one-movie/${movieId}`)
             const parsedData = await fetchedData.json()
-            console.log("edit movie ", parsedData.payload)
+            // console.log("edit movie ", parsedData.payload)
             setMovie(parsedData.payload)
 
             setLocationId(parsedData.payload.locationId)
@@ -40,7 +40,7 @@ function EditMovie() {
             return parsedData
         }
         handleViewMovie()
-    }, [id])
+    }, [movieId])
 
     const handleUpdateMovie = async () => {
         const newBody = {
@@ -56,7 +56,7 @@ function EditMovie() {
             userId: movie.movieOwner
         }
 
-        const fetchedData = await fetch(`${URL}/movies/update-movie/${id}`, {
+        const fetchedData = await fetch(`${URL}/movies/update-movie/${movieId}`, {
             method: "PUT",
             mode: "cors",
             headers: {
@@ -65,7 +65,7 @@ function EditMovie() {
             body: JSON.stringify(newBody)
         })
         const parsedData = await fetchedData.json()
-        navigate(`/home/movie/${id}`)
+        navigate(`/home/movie/${id}/${movieId}`)
         return parsedData
     }
 
@@ -125,7 +125,7 @@ function EditMovie() {
 
                     <div className="links">
                         <button onClick={ handleUpdateMovie } className='btn btn-primary'>Update Movie</button>
-                        <Link to={ `/home/movie/${movie._id}` } className='btn btn-primary'>Cancel</Link>
+                        <Link to={ `/home/movie/${id}/${movie._id}` } className='btn btn-primary'>Cancel</Link>
                     </div>
                 </div>
             </div>)

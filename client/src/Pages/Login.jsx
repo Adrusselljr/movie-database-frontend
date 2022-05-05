@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const URL = 'http://localhost:3001'
-// const URL = 'https://movie-database-backend.herokuapp.com'
+// const URL = 'http://localhost:3001'
+const URL = 'https://movie-database-backend.herokuapp.com'
 
 function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const navigate = useNavigate()
 
     const handleLogin = async () => {
         const newBody = {
@@ -25,10 +24,8 @@ function Login() {
             },
             body: JSON.stringify(newBody)
         })
-        
         const parsedData = await fetchedData.json()
-        console.log("logged user ", parsedData.payload)
-        navigate("/home/all-users")
+        // console.log("logged user ", parsedData.payload)
         return parsedData
     }
 
@@ -48,7 +45,7 @@ function Login() {
                     <input onChange={ e => setPassword(e.target.value) } value={ password } className='form-control' type="password"/>
                 </div><br/>
 
-                <Link onClick={ handleLogin } to='/home' className='btn btn-primary'>Login</Link>
+                <Link onClick={ handleLogin } to='/all-users' className='btn btn-primary'>Login</Link>
             </div><br/>
 
             <h5>Not Registered?</h5><br/>

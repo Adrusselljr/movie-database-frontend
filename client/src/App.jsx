@@ -10,6 +10,8 @@ import Movie from './Pages/Movie'
 import EditMovie from './Pages/EditMovie'
 import Search from './Pages/Search'
 import AllUsers from './Pages/AllUsers'
+import ViewProfile from './Pages/ViewProfile'
+import EditUser from './Pages/EditUser'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -19,15 +21,16 @@ function App() {
             <Routes>
                 <Route path='/' element={ <Registration /> } />
                 <Route path='login' element={ <Login /> } />
+                <Route path='all-users' element={ <AllUsers /> } />
                 <Route path='home' element={ <NavBar /> }>
                     <Route index element={ <Home /> } />
-                    <Route path='login' element={ <Login /> } />
                     <Route path='user/:id' element={ <User /> } />
-                    <Route path='movie/:id' element={ <Movie /> } />
-                    <Route path='movie/edit/:id' element={ <EditMovie /> } />
+                    <Route path='movie/:id/:movieId' element={ <Movie /> } />
+                    <Route path='movie/edit/:id/:movieId' element={ <EditMovie /> } />
                     <Route path='user/add-movie/:id' element={ <AddMovie /> } />
                     <Route path='user/search/:id' element={ <Search /> } />
-                    <Route path='all-users' element={ <AllUsers /> } />
+                    <Route path='user/profile/:id' element={ <ViewProfile /> } />
+                    <Route path='user/edit/:id' element={ <EditUser /> } />
                 </Route>
             </Routes>
         </BrowserRouter>

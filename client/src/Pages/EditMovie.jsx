@@ -24,7 +24,7 @@ function EditMovie() {
         const handleViewMovie = async () => {
             const fetchedData = await fetch(`${URL}/movies/get-one-movie/${movieId}`)
             const parsedData = await fetchedData.json()
-            // console.log("edit movie ", parsedData.payload)
+            console.log("edit movie ", parsedData.payload)
             setMovie(parsedData.payload)
 
             setLocationId(parsedData.payload.locationId)
@@ -55,7 +55,6 @@ function EditMovie() {
             yearReleased: yearReleased,
             userId: movie.movieOwner
         }
-
         const fetchedData = await fetch(`${URL}/movies/update-movie/${movieId}`, {
             method: "PUT",
             mode: "cors",

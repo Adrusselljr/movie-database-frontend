@@ -56,7 +56,7 @@ function EditMovie() {
             userId: movie.movieOwner
         }
 
-        const fetchedData = await fetch(`${URL}/movies/update-movie/${movie._id}`, {
+        const fetchedData = await fetch(`${URL}/movies/update-movie/${movieId}`, {
             method: "PUT",
             mode: "cors",
             headers: {
@@ -65,7 +65,7 @@ function EditMovie() {
             body: JSON.stringify(newBody)
         })
         const parsedData = await fetchedData.json()
-        navigate(`/home/movie/${id}/${movie._id}`)
+        navigate(`/home/movie/${id}/${movieId}`)
         return parsedData
     }
 

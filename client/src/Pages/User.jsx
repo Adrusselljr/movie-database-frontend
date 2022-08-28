@@ -1,25 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import React from 'react'
+import { useSelector } from 'react-redux';
+import { selectUser } from '../Redux/userSlice';
+import { Link } from 'react-router-dom'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// const URL = 'http://localhost:3001'
-const URL = 'https://movie-database-backend.herokuapp.com'
-
 function User() {
-    const [user, setUser] = useState({})
-    const { id } = useParams()
-
-    useEffect(() => {
-        const handleViewUser = async () => {
-            const fetchedData = await fetch(`${URL}/users/get-current-user/${id}`)
-            const parsedData = await fetchedData.json()
-            setUser(parsedData.payload)
-            // console.log("user ", parsedData.payload)
-            return parsedData
-        }
-        handleViewUser()
-    }, [id])
+    const user = useSelector(selectUser)
 
     return (
         <div className='App'>
@@ -37,7 +24,7 @@ function User() {
                         return (
                             <div key={ movie._id } className='movie'>
                                 <p><span>Title :</span> { movie.title }</p>
-                                <Link to={ `/home/movie/${id}/${movie._id}` } className='btn btn-primary'>View Movie</Link>
+                                <Link to={ `/home/movie/${user._id}/${movie._id}` } className='btn btn-primary'>View Movie</Link>
                             </div>
                         )
                     })}

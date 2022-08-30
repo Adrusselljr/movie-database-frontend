@@ -51,7 +51,7 @@ const Registration = () => {
             setPasswordError("Password cannot be empty!")
         }
 
-        if(isError) {
+        if(!isError) {
             navigate("login")
         }
         return parsedData

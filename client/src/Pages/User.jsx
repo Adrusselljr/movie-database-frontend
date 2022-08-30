@@ -17,7 +17,6 @@ function User() {
 
                     <div className="profileBtn">
                         <h1>{ user.firstName }'s Movie List</h1>
-                        <Link to={ `/home/user/profile/${user._id}` } className='btn btn-primary'>Profile</Link>
                     </div><br/><br/>
 
                     {user.movieHistory.map(movie => {
@@ -28,8 +27,6 @@ function User() {
                             </div>
                         )
                     })}
-                    <br/>
-                    <Link to={ `/home/user/add-movie/${user._id}` } className='btn btn-primary'>Add Movie</Link>
             </div> )
             }
         

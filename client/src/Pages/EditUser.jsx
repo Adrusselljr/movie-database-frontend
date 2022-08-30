@@ -1,62 +1,88 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { selectUser, selectToken } from '../Redux/userSlice';
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// const URL = 'http://localhost:3001'
-const URL = 'https://movie-database-backend.herokuapp.com'
+const URL = 'http://localhost:3001'
 
 function EditUser() {
+    const user = useSelector(selectUser)
+    const token = useSelector(selectToken)
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
-    const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [error, setError] = useState("")
-    const { id } = useParams()
+    const [toggle, setToggle] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
         const handleViewUser = async () => {
-            const fetchedData = await fetch(`${URL}/users/get-current-user/${id}`)
+            const fetchedData = await fetch(`${ URL }/users/current-user`, {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                }
+            })
             const parsedData = await fetchedData.json()
-            setFirstName(parsedData.payload.firstName)
-            setLastName(parsedData.payload.lastName)
-            setUsername(parsedData.payload.username)
-            setEmail(parsedData.payload.email)
-            // console.log("user ", parsedData.payload)
+            const user = parsedData.payload
+            setFirstName(user.firstName)
+            setLastName(user.lastName)
             return parsedData
         }
         handleViewUser()
-    }, [id])
+    }, [user, token])
 
     const handleUpdateUser = async () => {
         const newBody = {
             firstName: firstName,
-            lastName: lastName,
-            username: username,
-            email: email,
-            password: password,
-            confirmPassword: confirmPassword
+            lastName: lastName
         }
-        const fetchedData = await fetch(`${URL}/users/update-user/${id}`, {
+        const fetchedData = await fetch(`${ URL }/users/update-user`, {
             method: "PUT",
             mode: "cors",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            body: JSON.stringify(newBody)
+        })
+        const parsedData = await fetchedData.json()
+        navigate(`/home/user/profile/${ user._id }`)
+        return parsedData
+    }
+
+    const handleUpdatePassword = async () => {
+        const newBody = {
+            password: password,
+            confirmPassword: confirmPassword
+        }
+        const fetchedData = await fetch(`${ URL }/users/update-password`, {
+            method: "PUT",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
             },
             body: JSON.stringify(newBody)
         })
         const parsedData = await fetchedData.json()
         if(password !== confirmPassword) {
-            setError("Password and Confirm Password Do Not Match!")
+            setError("Password and Confirm Password do not match!")
         }
         else {
             setError("")
         }
-        navigate(`/home/user/profile/${id}`)
+        navigate(`/home/user/profile/${ user._id }`)
         return parsedData
+    }
+
+    const handleToggle = () => {
+        setToggle(!toggle)
     }
 
     return (
@@ -71,29 +97,30 @@ function EditUser() {
             <div className="form-group">
                 <label>Last Name</label>
                 <input onChange={ e => setLastName(e.target.value) } value={ lastName } className='form-control' type="text" />
-            </div>
-            <div className="form-group">
-                <label>Username</label>
-                <input onChange={ e => setUsername(e.target.value) } value={ username } className='form-control' type="text" />
-            </div>
-            <div className="form-group">
-                <label>Email</label>
-                <input onChange={ e => setEmail(e.target.value) } value={ email } className='form-control' type="email" />
-            </div><br/>
-            <h6>( Please Re-enter Password If You're Not Changing It )</h6>
-            <div className="form-group">
-                <label>Password</label>
-                <input onChange={ e => setPassword(e.target.value) } value={ password } className='form-control' type="password" />
-            </div>
-            <div className="form-group">
-                <label>Confirm Password</label>
-                <input onChange={ e => setConfirmPassword(e.target.value) } value={ confirmPassword } className='form-control' type="password" />
-            </div><br/>
-            <p style={{ color: "red" }}>{error}</p>
+            </div><br/><br/>
+            {
+                toggle
+                ? (<>
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input onChange={ e => setPassword(e.target.value) } value={ password } className='form-control' type="password" />
+                    </div>
+                    <div className="form-group">
+                        <label>Confirm Password</label>
+                        <input onChange={ e => setConfirmPassword(e.target.value) } value={ confirmPassword } className='form-control' type="password" />
+                    </div><br/>
+                    <div>
+                    <button onClick={ handleUpdatePassword } className='btn btn-primary'>Update Password</button>
+                    </div>
+                    <span className='text-danger'>{ error }</span><br/><br/>
+                </>)
+                : ("")
+            }
 
             <div className="links">
-                <Link to={ `/home/user/profile/${id}` } className='btn btn-primary'>Cancel</Link>
+                <Link to={ `/home/user/profile/${ user._id }` } className='btn btn-primary'>Cancel</Link>
                 <button onClick={ handleUpdateUser } className='btn btn-primary'>Update User</button>
+                <button onClick={ handleToggle } className='btn btn-primary'>Change Password</button>
             </div>
         
         </div>

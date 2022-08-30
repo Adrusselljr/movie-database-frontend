@@ -7,9 +7,9 @@ function Home() {
     return (
         <div className='App'>
 
-            <h1>Select A User</h1><br/>
-
-            <User />
+            <div id="home">
+                <User />
+            </div>
         
         </div>
     )

@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { selectToken, selectUser } from '../Redux/userSlice'
+import { useSelector } from 'react-redux'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// const URL = 'http://localhost:3001'
-const URL = 'https://movie-database-backend.herokuapp.com'
+const URL = 'http://localhost:3001'
 
 function AddMovie() {
+    const user = useSelector(selectUser)
+    const token = useSelector(selectToken)
     const [locationId, setLocationId] = useState(0)
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
@@ -16,7 +19,6 @@ function AddMovie() {
     const [stars, setStars] = useState([])
     const [runtime, setRuntime] = useState("")
     const [yearReleased, setYearReleased] = useState(0)
-    const { id } = useParams()
     const navigate = useNavigate()
 
     const handleAddMovie = async () => {
@@ -30,19 +32,20 @@ function AddMovie() {
             stars: stars,
             runtime: runtime,
             yearReleased: yearReleased,
-            movieOwner: id
+            movieOwner: user._id
         }
 
-        const fetchedData = await fetch(`${URL}/movies/create-movie/${id}`, {
+        const fetchedData = await fetch(`${ URL }/movies/create-movie`, {
             method: "POST",
             mode: "cors",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": token
             },
             body: JSON.stringify(newBody)
         })
         const parsedData = await fetchedData.json()
-        navigate(`/home/user/${id}`)
+        navigate(`/home`)
         return parsedData
     }
 

@@ -26,8 +26,8 @@ function App() {
                     <Route path='home' element={ <NavBar /> }>
                         <Route index element={ <Home /> } />
                         <Route path='user' element={ <User /> } />
-                        <Route path='movie/:id/:movieId' element={ <Movie /> } />
-                        <Route path='movie/edit/:id/:movieId' element={ <EditMovie /> } />
+                        <Route path='movie/:movieId' element={ <Movie /> } />
+                        <Route path='movie/edit/:movieId' element={ <EditMovie /> } />
                         <Route path='user/add-movie/:id' element={ <AddMovie /> } />
                         <Route path='user/search/:id' element={ <Search /> } />
                         <Route path='user/profile/:id' element={ <ViewProfile /> } />

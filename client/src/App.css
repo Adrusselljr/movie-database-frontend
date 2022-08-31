@@ -11,7 +11,7 @@
 }
 
 #home {
-  margin-top: 75px;
+  margin-top: 5%;
 }
 
 .navbar {
@@ -62,12 +62,4 @@ span {
 .search {
   width: 33%;
   display: flex;
-}
-
-.profileBtn {
-  display: flex;
-  width: 50%;
-  height: 40px;
-  margin-left: 25%;
-  justify-content: space-around;
 }

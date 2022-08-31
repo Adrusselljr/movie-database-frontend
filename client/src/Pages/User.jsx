@@ -1,12 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import { selectUser } from '../Redux/userSlice';
+import { selectToken, selectUser, addUser } from '../Redux/userSlice';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+const URL = 'http://localhost:3001'
+
 function User() {
     const user = useSelector(selectUser)
+    const token = useSelector(selectToken)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const handleViewUser = async () => {
+            const fetchedData = await fetch(`${ URL }/users/current-user`, {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                }
+            })
+            const parsedData = await fetchedData.json()
+            dispatch(addUser(parsedData.payload))
+            return parsedData
+        }
+        handleViewUser()
+    }, [dispatch, token])
 
     return (
         <div className='App'>
@@ -22,8 +44,8 @@ function User() {
                     {user.movieHistory.map(movie => {
                         return (
                             <div key={ movie._id } className='movie'>
-                                <p><span>Title :</span> { movie.title }</p>
-                                <Link to={ `/home/movie/${user._id}/${movie._id}` } className='btn btn-primary'>View Movie</Link>
+                                <p><span>Title : </span>{ movie.title }</p>
+                                <Link to={ `/home/movie/${movie._id}` } className='btn btn-primary'>View Movie</Link>
                             </div>
                         )
                     })}

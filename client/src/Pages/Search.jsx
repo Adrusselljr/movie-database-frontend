@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectToken, selectUser } from '../Redux/userSlice'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// const URL = 'http://localhost:3001'
-const URL = 'https://movie-database-backend.herokuapp.com'
+const URL = 'http://localhost:3001'
 
 function Search() {
-    const [user, setUser] = useState({})
+    const user = useSelector(selectUser)
+    const token = useSelector(selectToken)
     const [title, setTitle] = useState("")
     const [genre, setGenre] = useState("")
     const [rating, setRating] = useState("")
@@ -19,14 +21,19 @@ function Search() {
 
     useEffect(() => {
         const handleViewUser = async () => {
-            const fetchedData = await fetch(`${URL}/users/get-current-user/${id}`)
+            const fetchedData = await fetch(`${ URL }/users/current-user`, {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                }
+            })
             const parsedData = await fetchedData.json()
-            setUser(parsedData.payload)
-            // console.log("user ", parsedData.payload)
             return parsedData
         }
         handleViewUser()
-    }, [id])
+    }, [token])
 
     const searchTitle = () => {
         const titleSearch = user.movieHistory.filter(movie => {

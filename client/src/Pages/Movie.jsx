@@ -14,13 +14,16 @@ function Movie() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    console.log("movieId ", movieId)
-
     useEffect(() => {
         const handleViewMovie = async () => {
-            const fetchedData = await fetch(`${ URL }/movies/get-one-movie/${ movieId }`)
+            const fetchedData = await fetch(`${ URL }/movies/get-one-movie/${ movieId }`, {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
             const parsedData = await fetchedData.json()
-            console.log("parsedData ", parsedData)
             dispatch(addMovie(parsedData.payload))
             return parsedData
         }
@@ -53,9 +56,9 @@ function Movie() {
                 <div className="oneMovie">
                     <p><span>Description : </span>{ movie.description }</p>
                     <p><span>Rated : </span>{ movie.rating }</p>
-                    <p><span>Genre : </span>{ movie.genre.join(', ') }</p>
+                    <p><span>Genre : </span>{ movie.genre.join(',') }</p>
                     <p><span>Director : </span>{ movie.director }</p>
-                    <p><span>Stars : </span>{ movie.stars.join(', ') }</p>
+                    <p><span>Stars : </span>{ movie.stars.join(',') }</p>
                     <p><span>Year Released : </span>{ movie.yearReleased }</p>
                     <p><span>Runtime : </span>{ movie.runtime }</p>
                 </div><br/>

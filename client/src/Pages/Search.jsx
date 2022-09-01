@@ -83,7 +83,7 @@ function Search() {
         }
         else{
             setIsError(true)
-            setError("No movies whit this star")
+            setError("No movies with this star")
         }
     }
 

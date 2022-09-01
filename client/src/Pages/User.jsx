@@ -37,7 +37,7 @@ function User() {
             ? ( <p>loading...</p> )
             : ( <div>
 
-                    <div className="profileBtn">
+                    <div>
                         <h1>{ user.firstName }'s Movie List</h1>
                     </div><br/><br/>
 

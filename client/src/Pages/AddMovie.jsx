@@ -87,7 +87,7 @@ function AddMovie() {
 
                 <div className="form-group">
                     <label>Stars</label>
-                    <input onChange={ e => setStars(e.target.value.split(',')) } value={ stars  } className='form-control' type="text" />
+                    <input onChange={ e => setStars(e.target.value.split(',')) } value={ stars } className='form-control' type="text" />
                 </div><br/>
 
                 <div className="form-group">

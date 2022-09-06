@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectToken, selectUser } from '../Redux/userSlice'
 import '../App.css'
@@ -17,7 +17,6 @@ function Search() {
     const [movies, setMovies] = useState([])
     const [isError, setIsError] = useState(false)
     const [error, setError] = useState("")
-    const { id } = useParams()
 
     useEffect(() => {
         const handleViewUser = async () => {
@@ -133,19 +132,19 @@ function Search() {
             <h1>Movies :</h1><br/>
 
             {isError
-            ? ( <div><p style={{color: "red"}}>{error}</p></div> )
+            ? ( <div><p style={{ color: "red" }}>{ error }</p></div> )
             : ( <div>{movies.map(movie => {
                 return (
-                    <div key={movie._id} className='user'>
+                    <div key={ movie._id } className='user'>
                         <p><span>Title : </span>{ movie.title }</p>
-                        <Link to={ `/home/movie/${id}/${movie._id}` } className='btn btn-primary'>View Movie</Link>
+                        <Link to={ `/home/movie/${ movie._id }` } className='btn btn-primary'>View Movie</Link>
                     </div>
                 )
             })}</div> )
             }
             <br/><br/><br/>
 
-            <Link to={ `/home/user/${user._id}` } className='btn btn-primary'>Back</Link><br/><br/>
+            <Link to={ `/home/user/${ user._id }` } className='btn btn-primary'>Back</Link><br/><br/>
         
         </div>
     )

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom"
-import { addUser, addToken } from '../Redux/userSlice';
-import { useDispatch } from 'react-redux';
+import { addUser, addToken, selectUser } from '../Redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import NavBarLogout from '../Components/NavBarLogout';
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 const axios = require('axios').default;
@@ -9,6 +10,7 @@ const axios = require('axios').default;
 const URL = 'http://localhost:3001'
 
 function Login() {
+    const user = useSelector(selectUser)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const dispatch = useDispatch()
@@ -30,6 +32,11 @@ function Login() {
 
     return (
         <div className='App'>
+            {
+            user
+            ? (<NavBarLogout />)
+            : ("")
+            }
 
             <h1>Login Here</h1>
 

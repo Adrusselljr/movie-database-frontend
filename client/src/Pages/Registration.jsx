@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom"
+import NavBarLogout from '../Components/NavBarLogout'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../Redux/userSlice'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const URL = 'http://localhost:3001'
 
 const Registration = () => {
+    const user = useSelector(selectUser)
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
@@ -59,6 +63,11 @@ const Registration = () => {
 
     return (
         <div className='App'>
+            {
+            user
+            ? (<NavBarLogout />)
+            : ("")
+            }
 
             <h1>Welcome to myMovies - Your Movie Library</h1><br/><br/>
 

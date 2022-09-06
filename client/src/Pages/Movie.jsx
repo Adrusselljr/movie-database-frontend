@@ -56,9 +56,9 @@ function Movie() {
                 <div className="oneMovie">
                     <p><span>Description : </span>{ movie.description }</p>
                     <p><span>Rated : </span>{ movie.rating }</p>
-                    <p><span>Genre : </span>{ movie.genre.join(',') }</p>
+                    <p><span>Genre : </span>{ movie.genre.join(', ') }</p>
                     <p><span>Director : </span>{ movie.director }</p>
-                    <p><span>Stars : </span>{ movie.stars.join(',') }</p>
+                    <p><span>Stars : </span>{ movie.stars.join(', ') }</p>
                     <p><span>Year Released : </span>{ movie.yearReleased }</p>
                     <p><span>Runtime : </span>{ movie.runtime }</p>
                 </div><br/>

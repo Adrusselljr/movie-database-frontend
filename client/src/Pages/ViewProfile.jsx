@@ -57,7 +57,7 @@ function ViewProfile() {
             <p><span>Last Name : </span>{ lastName }</p>
             <p><span>Email : </span>{ email }</p><br/>
 
-            <p><span>You currently have </span>{ user.movieHistory.length }<span> movies.</span></p><br/>
+            <p><span>You currently have </span>{ user.movieHistory.length }<span> movie(s).</span></p><br/>
 
             <div className='links'>
                 <button onClick={ handleDeleteUser } className='btn btn-primary'>Delete User</button>

@@ -45,7 +45,7 @@ function User() {
                         return (
                             <div key={ movie._id } className='movie'>
                                 <p><span>Title : </span>{ movie.title }</p>
-                                <Link to={ `/home/movie/${movie._id}` } className='btn btn-primary'>View Movie</Link>
+                                <Link to={ `/home/movie/${ movie._id }` } className='btn btn-primary'>View Movie</Link>
                             </div>
                         )
                     })}

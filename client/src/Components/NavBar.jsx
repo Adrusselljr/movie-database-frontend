@@ -21,9 +21,9 @@ function NavBar() {
 
             <div className='navbar'>
                 <Link to={ `/home` } className='btn btn-primary'>Home</Link>
-                <Link to={ `/home/user/profile/${user._id}` } className='btn btn-primary'>Profile</Link>
-                <Link to={ `/home/user/search/${user._id}` } className='btn btn-primary'>Search For A Movie</Link>
-                <Link to={ `/home/user/add-movie/${user._id}` } className='btn btn-primary'>Add Movie</Link>
+                <Link to={ `/home/user/add-movie/${ user._id }` } className='btn btn-primary'>Add Movie</Link>
+                <Link to={ `/home/user/search/${ user._id }` } className='btn btn-primary'>Search For A Movie</Link>
+                <Link to={ `/home/user/profile/${ user._id }` } className='btn btn-primary'>Profile</Link>
                 <button onClick={ handleLogout } className='btn btn-primary'>Logout</button>
             </div>
 

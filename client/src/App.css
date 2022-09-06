@@ -21,6 +21,14 @@
   border: 1px solid black;
 }
 
+.navbarLogout {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 85%;
+  margin-bottom: 25px;
+  border: 1px solid black;
+}
+
 .user, .movie {
   width: 30%;
   margin-left: 35%;
